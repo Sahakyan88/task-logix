@@ -12,10 +12,10 @@ class LikeRepository
 
         if ($like) {
             $like->delete();
-            return false;
+            return 'Like deleted';
         } else {
             Like::create(['user_id' => $user_id, 'article_id' => $article_id]);
-            return true;
+            return 'Liked';
         }
     }
 }

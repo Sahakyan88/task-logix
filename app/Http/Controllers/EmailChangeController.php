@@ -33,42 +33,26 @@ class EmailChangeController extends Controller
     {
         try {
             $emailChange = $this->emailChangeService->create($request);
-            return redirect()->route('email.change.confirm', $emailChange->id);
-
+            return redirect()->route('email-change-confirm', $emailChange->id);
         } catch (Exception $e) {
             return response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
     }
 
     public function showConfirmationForm($id)
     {
         try {
-            $emailChange = $this->emailChangeService->findId($id);
+            $emailChange = $this->emailChangeService->findById($id);
             return view('email.change.confirmation', compact('emailChange'));
-
         } catch (Exception $e) {
             return response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
     }
 
     public function confirm(ConfirmEmailChangeRequest $request)
     {
         try {
-            $emailChange = $this->emailChangeService->findEmailId($request->input('email_change_id'));
-
-            if (password_verify($request->input('code'), $emailChange->verification_code)
-                && now()->lt($emailChange->expires_at)) {
-
-                $this->emailChangeService->createEmail($emailChange);
-                $this->emailChangeService->delete($emailChange);
-
-                Session::flash('success', 'Email changed successfully!');
-                return redirect()->route('dashboard');
-            }
-
-            throw new \Exception('Invalid or expired verification code.');
+            return $this->emailChangeService->confirmEmailChange($request);
         } catch (\Exception $e) {
             Session::flash('error', $e->getMessage());
             return redirect()->back();

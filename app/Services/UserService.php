@@ -14,7 +14,6 @@ class UserService
     protected $userRepository;
     protected $articleRepository;
 
-
     public function __construct(UserRepository $userRepository,
                                 ArticleRepository $articleRepository)
     {
@@ -24,7 +23,6 @@ class UserService
 
     public function signUp($data)
     {
-
         return $this->userRepository->create($data);
     }
 

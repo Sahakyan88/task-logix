@@ -19,14 +19,10 @@ use App\Http\Controllers\ArticleController;
 //    return $request->user();
 //});
 
+//                          LOGIN REGISTRATION ROUTES
 Route::post('/sign-up', [UserController::class, 'signUp'])->name('signUp');
 Route::post('/sign-in', [UserController::class, 'signIn'])->name('signIn');
 
-
+//                                ARTICLE ROUTES
 Route::get('/articles/search', [ArticleController::class, 'search'])->name('article-search');
 Route::get('/articles/{count}', [ArticleController::class, 'getList'])->name('article-get');
-
-Route::post('/articles/toggleLike', [UserController::class, 'toggleLike'])->name('toggle-like');
-Route::post('users/comment', [UserController::class, 'userComment'])->name('users-comment');
-
-

@@ -14,10 +14,11 @@ class Article extends Model
         'description',
         'image_name',
         'image_path',
+        'user_id'
     ];
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class,'article_tags');
+        return $this->belongsToMany(Tag::class, 'article_tags');
     }
 }

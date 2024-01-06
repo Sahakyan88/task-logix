@@ -18,19 +18,25 @@ class UserController extends Controller
      * @var UserService
      */
     protected $userService;
+    /**
+     * @var LikeService
+     */
     protected $likeService;
+    /**
+     * @var CommentService
+     */
     protected $commentService;
-
 
     /**
      * @param UserService $userService
+     * @param LikeService $likeService
+     * @param CommentService $commentService
      */
     public function __construct(UserService $userService, LikeService $likeService, CommentService $commentService)
     {
         $this->userService = $userService;
         $this->likeService = $likeService;
         $this->commentService = $commentService;
-
     }
 
     public function signUp(SignUpRequest $request)
@@ -57,10 +63,9 @@ class UserController extends Controller
     public function toggleLike(Request $request)
     {
         try {
-            $user_id = $request->get('user_id');
             $article_id = $request->get('article_id');
-            $liked = $this->likeService->toggleLike($user_id, $article_id);
-            return response()->json(['liked' => $liked]);
+            $result = $this->likeService->toggleLike($article_id);
+            return response()->json(['result' => $result]);
         } catch (Exception $e) {
             return response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -69,16 +74,10 @@ class UserController extends Controller
     public function userComment(Request $request)
     {
         try {
-//            if (Auth::user()) {
-            $user_id = $request->get('user_id');
             $article_id = $request->get('article_id');
-            $comment = $request->get('comment');
-            $comments = $this->commentService->userComment($user_id, $article_id, $comment);
-            return response()->json(['comments' => $comments]);
-//            } else {
-//                return response()->json(['error' => 'error']);
-//            }
-
+            $text = $request->get('comment');
+            $comment = $this->commentService->create($article_id, $text);
+            return response()->json(['result' => $comment]);
         } catch (Exception $e) {
             return response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

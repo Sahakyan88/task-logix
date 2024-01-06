@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <title>Email Change</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        /* You can add custom styles here */
-    </style>
 </head>
 <body>
 
 <h1>Change Email</h1>
-<form method="POST" action="{{ route('email.change.initiate') }}" class="needs-validation" novalidate>
+<form method="POST" action="{{ route('email-change-initiate') }}" class="needs-validation" novalidate>
     @csrf
     <div class="mb-3">
         <label for="new_email" class="form-label">New Email Address:</label>

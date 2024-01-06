@@ -6,12 +6,8 @@ use App\Models\Comment;
 
 class CommentRepository
 {
-    public function userComment($user_id, $article_id, $comment)
+    public function create($data)
     {
-        return Comment::create(['user_id' => $user_id,
-            'article_id' => $article_id,
-            'comment' => $comment
-        ]);
-
+        return Comment::create($data);
     }
 }

@@ -28,7 +28,7 @@ class ArticleRepository
 
     public function findById($id)
     {
-        return Article::where('id', $id)->first();
+        return Article::find($id);
     }
 
     public function getAll()

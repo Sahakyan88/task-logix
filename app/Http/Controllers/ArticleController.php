@@ -14,18 +14,20 @@ class ArticleController extends Controller
     /**
      * @var ArticleService
      */
-
     protected $articleService;
+    /**
+     * @var TagService
+     */
     protected $tagService;
 
     /**
-     * @param ArticleService $userService
+     * @param ArticleService $articleService
+     * @param TagService $tagService
      */
     public function __construct(ArticleService $articleService, TagService $tagService)
     {
         $this->articleService = $articleService;
         $this->tagService = $tagService;
-
     }
     public function article()
     {
@@ -33,7 +35,7 @@ class ArticleController extends Controller
         return view('article', compact('tags'));
     }
 
-    public function create(ArticleRequest $request)
+    public function create(Request $request)
     {
         try {
             $article = $this->articleService->create($request->all());

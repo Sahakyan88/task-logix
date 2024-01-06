@@ -8,7 +8,7 @@
 <body>
 
 <h1>Confirm New Email</h1>
-<form method="POST" action="{{ route('email.change.confirmation') }}" class="needs-validation" novalidate>
+<form method="POST" action="{{ route('email-change-confirmation') }}" class="needs-validation" novalidate>
     @csrf
     <input type="hidden" name="email_change_id" value="{{ $emailChange->id }}">
     <div class="mb-3">

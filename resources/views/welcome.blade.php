@@ -788,14 +788,15 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('email-change')}}">Change Email</a>
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="{{route('article-page')}}">Add Article</a>
             </li>
             @if (Route::has('login'))
                 @auth
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('email-change')}}">Change Email</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/dashboard') }}">dashboard</a>
                     </li>

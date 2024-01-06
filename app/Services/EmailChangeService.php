@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Mail\VerificationEmail;
 use App\Repositories\EmailChangeRepository;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class EmailChangeService
 {
@@ -26,28 +27,24 @@ class EmailChangeService
         return $this->emailChangeRepository->create($user, $verificationCode, $email);
     }
 
-    public function findId($id)
+    public function confirmEmailChange($request)
     {
-        return $this->emailChangeRepository->findId($id);
+        $emailChange = $this->emailChangeRepository->findById($request->input('email_change_id'));
+
+        if (password_verify($request->input('code'), $emailChange->verification_code)
+            && now()->lt($emailChange->expires_at)) {
+
+            $this->emailChangeRepository->createEmail($emailChange);
+            $this->emailChangeRepository->delete($emailChange);
+
+            Session::flash('success', 'Email changed successfully!');
+            return redirect()->route('dashboard');
+        }
+        throw new \Exception('Invalid or expired verification code.');
     }
 
-    public function findEmailId($email_id)
+    public function findById($id)
     {
-        return $this->emailChangeRepository->findEmailId($email_id);
-
-    }
-
-    public function createEmail($emailChange)
-    {
-
-        return $this->emailChangeRepository->createEmail($emailChange);
-
-    }
-
-    public function delete($emailChange)
-    {
-
-        return $this->emailChangeRepository->delete($emailChange);
-
+        return $this->emailChangeRepository->findById($id);
     }
 }

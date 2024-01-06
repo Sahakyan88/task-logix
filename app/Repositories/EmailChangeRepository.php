@@ -16,14 +16,9 @@ class EmailChangeRepository
         ]);
     }
 
-    public function findId($id)
+    public function findById($id)
     {
         return EmailChange::findOrFail($id);
-    }
-
-    public function findEmailId($email_id)
-    {
-        return EmailChange::findOrFail($email_id);
     }
 
     public function createEmail($emailChange)
@@ -31,7 +26,6 @@ class EmailChangeRepository
         $user = $emailChange->user;
         $user->email = $emailChange->new_email;
         $user->save();
-
         return $user;
     }
 

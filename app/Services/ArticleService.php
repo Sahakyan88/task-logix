@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\ArticleRepository;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleService
@@ -33,12 +34,16 @@ class ArticleService
 
         $data['image_path'] = "/storage/" . $fileData;
         $data['image_name'] = $imageName;
+        if (Auth::user()) {
+            $data['user_id'] = Auth::user()->id;
+        } else {
+            $data['user_id'] = null;
+        }
         $data['name'] = $articleData['name'];
         $data['description'] = $articleData['description'];
 
         return $this->articleRepository->create($data);
     }
-
 
     public function getList($count)
     {

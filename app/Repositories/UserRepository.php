@@ -22,6 +22,7 @@ class UserRepository
     {
         return User::where('email', $email)->first();
     }
+
     public function findById($id)
     {
         return User::where('id', $id)->first();
