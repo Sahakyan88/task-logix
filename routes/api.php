@@ -24,6 +24,8 @@ Route::post('/sign-in', [UserController::class, 'signIn'])->name('signIn');
 
 
 Route::get('/articles/search', [ArticleController::class, 'search'])->name('article-search');
+Route::get('/articles/{count}', [ArticleController::class, 'getList'])->name('article-get');
+
 Route::post('/articles/toggleLike', [UserController::class, 'toggleLike'])->name('toggle-like');
 Route::post('users/comment', [UserController::class, 'userComment'])->name('users-comment');
 

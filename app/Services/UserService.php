@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-
 use App\Repositories\ArticleRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;

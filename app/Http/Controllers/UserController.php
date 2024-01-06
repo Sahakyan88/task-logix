@@ -10,6 +10,7 @@ use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -68,11 +69,16 @@ class UserController extends Controller
     public function userComment(Request $request)
     {
         try {
+//            if (Auth::user()) {
             $user_id = $request->get('user_id');
             $article_id = $request->get('article_id');
             $comment = $request->get('comment');
             $comments = $this->commentService->userComment($user_id, $article_id, $comment);
             return response()->json(['comments' => $comments]);
+//            } else {
+//                return response()->json(['error' => 'error']);
+//            }
+
         } catch (Exception $e) {
             return response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

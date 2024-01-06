@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\EmailChangeController;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -28,10 +30,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-   });
 
-require __DIR__.'/auth.php';
+    Route::get('/email/change', [EmailChangeController::class, 'showForm'])->name('email-change');
+    Route::post('/email/change', [EmailChangeController::class, 'initiate'])->name('email.change.initiate');
+    Route::get('/email/change/confirm/{code}', [EmailChangeController::class, 'showConfirmationForm'])->name('email.change.confirm');
+    Route::post('/email/change/confirm', [EmailChangeController::class, 'confirm'])->name('email.change.confirmation');
+
+});
+
+require __DIR__ . '/auth.php';
 
 Route::get('/articles', [ArticleController::class, 'article'])->name('article-page');
-Route::get('/articles/{count}', [ArticleController::class, 'getList'])->name('article-get');
 Route::post('/articles/new', [ArticleController::class, 'create'])->name('article-create');

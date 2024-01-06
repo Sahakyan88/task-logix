@@ -3,13 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Laravel</title>
-
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet"/>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Styles -->
     <style>
         /* ! tailwindcss v3.2.4 | MIT License | https://tailwindcss.com */
@@ -779,34 +777,45 @@
             }
         }
     </style>
+
 </head>
 <body class="antialiased">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Laravel</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('email-change')}}">Change Email</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('article-page')}}">Add Article</a>
+            </li>
+            @if (Route::has('login'))
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/dashboard') }}">dashboard</a>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">Login</a>
+                    </li>
+
+                    @if (Route::has('register'))
+
+                        <a class="nav-link" href="{{ route('register') }}">Register</a>
+
+                    @endif
+                @endauth
+            @endif
+        </ul>
+    </div>
+</nav>
 <div
     class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-    <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
-
-        <a href="{{route('article-page')}}"
-           class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Add
-            Article</a>
-    </div>
-    @if (Route::has('login'))
-        <div class="sm:fixed sm:top-0 sm:right-1 p-6 text-right z-10">
-            @auth
-                <a href="{{ url('/dashboard') }}"
-                   class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
-            @else
-                <a href="{{ route('login') }}"
-                   class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log
-                    in</a>
-
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}"
-                       class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
-                @endif
-            @endauth
-        </div>
-    @endif
-
     <div class="max-w-7xl mx-auto p-6 lg:p-8">
         <div class="flex justify-center">
             <svg viewBox="0 0 62 65" fill="none" xmlns="http://www.w3.org/2000/svg"

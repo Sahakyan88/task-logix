@@ -1,4 +1,15 @@
 <x-app-layout>
+    @if(Session::has('success'))
+        <div style="background-color: greenyellow;color: white" class="alert alert-success">
+            {{ Session::get('success') }}
+        </div>
+    @endif
+
+    @if(Session::has('error'))
+        <div style="background-color: red;color: white" class="alert alert-danger">
+            {{ Session::get('error') }}
+        </div>
+    @endif
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Dashboard') }}

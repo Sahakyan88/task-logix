@@ -42,5 +42,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function emailChanges()
+    {
+        return $this->hasMany(EmailChange::class);
+    }
 
 }
