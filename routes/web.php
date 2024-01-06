@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 //                                EMAIL UPDATE ROUTES
-    Route::get('/email/change', [EmailChangeController::class, 'showForm'])->name('email-change-form');
+    Route::get('/email/change', [EmailChangeController::class, 'showForm'])->name('email-change');
     Route::post('/email/change', [EmailChangeController::class, 'initiate'])->name('email-change-initiate');
     Route::get('/email/change/confirm/{code}', [EmailChangeController::class, 'showConfirmationForm'])->name('email-change-confirm');
     Route::post('/email/change/confirm', [EmailChangeController::class, 'confirm'])->name('email-change-confirmation');
